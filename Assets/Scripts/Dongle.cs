@@ -18,22 +18,23 @@ public class Dongle : MonoBehaviour
         if (isDrag)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            float leftborder = -8.7f + transform.localScale.x / 2f;
-            float rightborder = -0.2f - transform.localScale.x / 2f;
+            float leftBorder = -5.2f + transform.localScale.x / 2f;
+            float rightBorder = 5.4f - transform.localScale.x / 2f;
 
-            if (mousePos.x < leftborder)
+            if (mousePos.x < leftBorder)
             {
-                mousePos.x = leftborder;
+                mousePos.x = leftBorder;
             }
-            else if (mousePos.x > rightborder)
+            else if (mousePos.x > rightBorder)
             {
-                mousePos.x = rightborder;
+                mousePos.x = rightBorder;
             }
 
-            mousePos.y = 8;
             mousePos.z = 0;
+            mousePos.y = 10;
             transform.position = Vector3.Lerp(transform.position, mousePos, 0.01f);
         }
+        
     }
 
     public void Drag()
