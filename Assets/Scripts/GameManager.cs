@@ -7,6 +7,9 @@ public class GameMamager : MonoBehaviour
     public Dongle lastDongle;
     public GameObject donglePrefab;
     public Transform Dongle_Group;
+
+    public int MaxLevel;
+    public int Score;
     
     void Start()
     {
@@ -24,9 +27,24 @@ public class GameMamager : MonoBehaviour
     {
        Dongle newDongle = GetDongle();
        lastDongle = newDongle;
+       lastDongle.Manager = this;
+       lastDongle.level = Random.Range(0, MaxLevel);
+       lastDongle.gameObject.SetActive(true);
+
+       StartCoroutine(WaitNext());
     }
 
-    
+    IEnumerator WaitNext()
+    {
+        while (lastDongle != null)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(2.5f);
+
+        NextDongle() ;
+    }
 
     public void TouchDown()
     {
@@ -37,7 +55,7 @@ public class GameMamager : MonoBehaviour
 
     public void TouchUp()
     {
-        if (lastDongle == null)
+        if (lastDongle == null) 
             return;
         lastDongle.Drop();
         lastDongle = null;
